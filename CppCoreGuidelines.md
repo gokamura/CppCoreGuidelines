@@ -2,31 +2,69 @@
 
 September 2, 2018
 
+2018年9月2日
 
 Editors:
+	
+編集者:
 
 * [Bjarne Stroustrup](http://www.stroustrup.com)
 * [Herb Sutter](http://herbsutter.com/)
 
 This is a living document under continuous improvement.
-Had it been an open-source (code) project, this would have been release 0.8.
+
+これは、継続的に改善中の生きたドキュメントです。
+
+Had it been an open-source (code) project, this would have been 
+release 0.8.
+
+オープンソース（コード）のプロジェクトとしては、これはリリース0.8となっています。
+
 Copying, use, modification, and creation of derivative works from this project is licensed under an MIT-style license.
+
+このプロジェクトの複製、使用、改変、ならびに派生物の作成はMITライセンスのもとで行われます。
+
 Contributing to this project requires agreeing to a Contributor License. See the accompanying [LICENSE](LICENSE) file for details.
+
+このプロジェクトに貢献するには、貢献者ライセンスへの同意が必要です。詳細は付属の LICENSE](LICENSE) ファイルをご覧ください。
+
 We make this project available to "friendly users" to use, copy, modify, and derive from, hoping for constructive input.
 
+我々はこのプロジェクトを「フレンドリーなユーザ」が使用、複製、改変、派生を行えるようにすることで、建設的なインプットが得られることを期待しています。
+
 Comments and suggestions for improvements are most welcome.
+
+改善のためのコメントや提案を大いに歓迎しています。
+
 We plan to modify and extend this document as our understanding improves and the language and the set of available libraries improve.
+
+我々の理解や、言語と使用可能なライブラリの改善に合わせて、このドキュメントは改変、拡張されていく予定です。
+
 When commenting, please note [the introduction](#S-introduction) that outlines our aims and general approach.
+
+コメントする際は、[イントロダクション](#S-introduction)の内容にご留意ください。我々の目標や一般的なアプローチの概要について書かれています。
+
 The list of contributors is [here](#SS-ack).
 
+貢献者の一覧は[こちら](#SS-ack).
+
 Problems:
+	
+問題点:
 
 * The sets of rules have not been completely checked for completeness, consistency, or enforceability.
 * Triple question marks (???) mark known missing information
 * Update reference sections; many pre-C++11 sources are too old.
 * For a more-or-less up-to-date to-do list see: [To-do: Unclassified proto-rules](#S-unclassified)
 
+* 一連のルールに関して、網羅性、一貫性、執行可能性についての完全なチェックは行われていません。
+* 3つのクエスチョンマーク(???)は情報が欠けている部分を示しています。
+* リファレンスの節に更新が必要です。多くの C++11 以前のソースが古すぎます。
+* おおむね最新のTo-doリストはこちらをご覧ください: [To-do: 未分類のルール案](#S-unclassified)
+
 You can [read an explanation of the scope and structure of this Guide](#S-abstract) or just jump straight in:
+
+[このガイドが扱う範囲や構造に関する説明](#S-abstract)をお読みになることもできますし、以下の項目へ直接ジャンプしても構いません。
 
 * [In: Introduction](#S-introduction)
 * [P: Philosophy](#S-philosophy)
@@ -45,7 +83,26 @@ You can [read an explanation of the scope and structure of this Guide](#S-abstra
 * [SF: Source files](#S-source)
 * [SL: The Standard Library](#S-stdlib)
 
+* [In: イントロダクション](#S-introduction)
+* [P: 哲学](#S-philosophy)
+* [I: インターフェース](#S-interfaces)
+* [F: 関数](#S-functions)
+* [C: クラスとクラス階層](#S-class)
+* [Enum: 列挙体](#S-enum)
+* [R: リソース管理](#S-resource)
+* [ES: 式と文](#S-expr)
+* [Per: パフォーマンス](#S-performance)
+* [CP: 並行・並列処理](#S-concurrency)
+* [E: エラー処理](#S-errors)
+* [Con: 定数と不変性](#S-const)
+* [T: テンプレートとジェネリック・プログラミング](#S-templates)
+* [CPL: Cスタイルのプログラミング](#S-cpl)
+* [SF: ソースファイル](#S-source)
+* [SL: 標準ライブラリ](#S-stdlib)
+
 Supporting sections:
+
+補足:
 
 * [A: Architectural ideas](#S-A)
 * [NR: Non-Rules and myths](#S-not)
@@ -61,7 +118,23 @@ Supporting sections:
 * [Glossary](#S-glossary)
 * [To-do: Unclassified proto-rules](#S-unclassified)
 
+* [A: アーキテクチャのアイデア](#S-A)
+* [NR: ルールでないものと神話](#S-not)
+* [RF: リファレンス](#S-references)
+* [Pro: Profiles](#S-profile)
+* [GSL: ガイドラインサポートライブラリ](#S-gsl)
+* [NL: 命名とレイアウトの規則](#S-naming)
+* [FAQ: よくある質問](#S-faq)
+* [付録A: ライブラリ](#S-libraries)
+* [付録B: コードのモダン化](#S-modernizing)
+* [付録C: 議論](#S-discussion)
+* [付録D: 補助ツール](#S-tools)
+* [用語集](#S-glossary)
+* [To-do: 未分類のルール案](#S-unclassified)
+
 You can sample rules for specific language features:
+
+個別の言語機能に関するルール:
 
 * assignment:
 [regular types](#Rc-regular) --
@@ -70,6 +143,7 @@ You can sample rules for specific language features:
 [move](#Rc-move-semantic) --
 [other operations](#Rc-matched) --
 [default](#Rc-eqdefault)
+
 * `class`:
 [data](#Rc-org) --
 [invariant](#Rc-struct) --
@@ -171,6 +245,8 @@ You can sample rules for specific language features:
 [never fail](#Rc-dtor-fail)
 
 You can look at design concepts used to express the rules:
+
+ルールを表現するために使われている設計コンセプト:
 
 * assertion: ???
 * error: ???
