@@ -261,35 +261,98 @@ You can look at design concepts used to express the rules:
 
 # <a name="S-abstract"></a>Abstract
 
+概要
+
 This document is a set of guidelines for using C++ well.
+
+このドキュメントはC++をうまく利用するためのガイドライン集です。
+
 The aim of this document is to help people to use modern C++ effectively.
+
+モダンなC++を効果的に使う上で、このドキュメントが助けになることを目指しています。
+
 By "modern C++" we mean effective use of the ISO C++ standard (currently C++17, but almost all of our recommendations also apply to C++14 and C++11).
+
+ここで「モダンなC++」というのは、ISO C++標準を効果的に使うことを意味しています。現在 C++17 ですが、ほとんどの推奨事項は C++14 と C++11 にも当てはまります。
+
 In other words, what would you like your code to look like in 5 years' time, given that you can start now? In 10 years' time?
 
+言い換えると、今からコードを書くとして、5年後、10年後にどのようなコードになっているべきか？ということでもあります。
+
 The guidelines are focused on relatively high-level issues, such as interfaces, resource management, memory management, and concurrency.
+
+多くのガイドラインは、インターフェース、リソース管理、メモリ管理、並列処理など、比較的高水準の問題に焦点を当てています。
+
 Such rules affect application architecture and library design.
+
+それらのルールはアプリケーションのアーキテクチャやライブラリの設計に影響を与えます。
+
 Following the rules will lead to code that is statically type safe, has no resource leaks, and catches many more programming logic errors than is common in code today.
+
+ルールに従うことで、コードは静的に型安全になり、リソースリークがなくなり、一般的な今日のコードに比べるとロジックの間違いが非常に見つけやすくなります。
+
 And it will run fast -- you can afford to do things right.
+
+しかもそれは速く動作します。ものごとを正しく行う余裕ができます。
 
 We are less concerned with low-level issues, such as naming conventions and indentation style.
 However, no topic that can help a programmer is out of bounds.
 
+命名規則やインデントのスタイルなど、低水準の問題は主な関心ではありません。
+ただし、プログラマの助けになるものはこの限りではありません。
+
 Our initial set of rules emphasizes safety (of various forms) and simplicity.
+
+最初のルール群は、（様々な形式での）安全性と単純さを重視しています。
+
 They may very well be too strict.
+
+もしかしたらそれらのルールは厳しすぎるかもしれません。
+
 We expect to have to introduce more exceptions to better accommodate real-world needs.
+
+現実問題とうまく向き合うため、例外をもっと導入しなければならないでしょう。
+
 We also need more rules.
 
+一方で、もっと多くのルールが必要です。
+
 You will find some of the rules contrary to your expectations or even contrary to your experience.
+
+あなたの想定に反したルールもあることでしょう。あなたの経験に相容れないものすらあるかもしれません。
+
 If we haven't suggested you change your coding style in any way, we have failed!
+
+もし、あなたのコーディングスタイルを変える提案ができなければ、私たちは失敗しています！
+
 Please try to verify or disprove rules!
+
+どうか、ルールの検証や反証を試してみてください。
+
 In particular, we'd really like to have some of our rules backed up with measurements or better examples.
 
+特に、いくつかのルールは計測やより良い例などによる支持を必要としています。
+
 You will find some of the rules obvious or even trivial.
+
+当たり前だったり、些細なことだと思うようなルールもあるかもしれません。
+
 Please remember that one purpose of a guideline is to help someone who is less experienced or coming from a different background or language to get up to speed.
 
+それでも、ガイドラインには次のような目的があることを覚えておいてください。経験の浅い人、異なる経歴を持つ人、他の言語を使っていた人などが素早く習得できるように、ということです。
+
 Many of the rules are designed to be supported by an analysis tool.
+
+多くのルールは分析ツールによってサポートされるよう設計されています。
+
 Violations of rules will be flagged with references (or links) to the relevant rule.
+
+ルールを違反した箇所には関連するルールへのリファレンスまたはリンクが示されます。
+
 We do not expect you to memorize all the rules before trying to write code.
+
+コードを書こうとする前に、すべてのルールを覚えている必要はありません。
+
 One way of thinking about these guidelines is as a specification for tools that happens to be readable by humans.
 
 The rules are meant for gradual introduction into a code base.
